@@ -172,29 +172,61 @@ Each server topology requires different sets of prerequisites. You can choose an
  - [Separated Network Configuration]()
 
 ### Recommended Configuration
+This is the recommended configuration where we have the load distributed against three different computers.
 <p align="center">
   <img src="./img/topologies/Diagram1.JPG" width="650px"/>
 </p>
+
+**Prerequisites**
+ - Internet Connection
+ - Debian Based Computer (PiVPN)
+ - Computer (Minecraft Server)
+ - Computer (To play on)
 
 ### Combined Gateway and Server Configuration
 <p align="center">
   <img src="./img/topologies/Diagram2.JPG" width="650px" />
 </p>
 
+**Prerequisites**
+ - Internet Connection
+ - Debian Based Computer (PiVPN & Minecraft Server)
+ - Computer (To play on)
+
 ### Computer Host Configuration
 <p align="center">
   <img src="./img/topologies/Diagram3.JPG" width="650px" />
 </p>
+
+**Prerequisites**
+ - Internet Connection
+ - Debian Based Computer (PiVPN)
+ - Computer (To play on & Minecraft Server)
 
 ### All In One Configuration
 <p align="center">
   <img src="./img/topologies/Diagram4.JPG" width="650px" />
 </p>
 
+**Prerequisites**
+ - Internet Connection
+ - Computer (PiVPN, Minecraft server and Personal Computer)
+
+Note: The computer can be any operating system, though if it isn't debian based you will not be able to take the easy route of using PiVPN and it's features and will instead have to install WireGuard manually.
+
 ### Separated Network Configuration
+This topology is more food for thought than anything, if you cannot host the Minecraft server on your local network then you are more than welcome to have that server located elsewhere.
+
 <p align="center">
   <img src="./img/topologies/Diagram5.JPG" width="650px" />
 </p>
+
+ - Internet Connection
+ - Debian Based Computer (PiVPN)
+ - Computer (Minecraft Server)
+ - Computer (To play on)
+
+## Setting Up The Operating System
 
 ### Contributing ~
 please see [CONTRIBUTING.md](CONTRIBUTING.md).

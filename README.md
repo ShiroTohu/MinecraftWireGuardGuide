@@ -157,6 +157,6 @@ This section will list some alternatives I have found. I will first describe the
 [ESSENTIALS Mod](https://www.curseforge.com/minecraft/mc-mods/essential-mod)|Essentials is a quality of life mod that allows you to host singleplayer worlds to peers. It also adds some other things that brighten the social aspects of Minecraft like cosmetics and a wardrobe feature. The Mod is available for both [Forge](https://forums.minecraftforge.net/) and [Fabric](https://fabricmc.net/).<br><br>As for the difference between the Essentials Mod and WireGuard it is much more simpler to setup and takes out a lot of the hassle of creating a connection. As for how essentials achieves this is unknown to me.
 
 ### Contributing ~
-please see [CONTRIBUTING.md](contributing.md).
+please see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Footnotes ~

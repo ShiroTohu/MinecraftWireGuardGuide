@@ -173,27 +173,27 @@ Each server topology requires different sets of prerequisites. You can choose an
 
 ### Recommended Configuration
 <p align="center">
-  <img src="./img/topologies/Diagram1.JPG" height="650px"/>
+  <img src="./img/topologies/Diagram1.JPG" width="650px"/>
 </p>
 
 ### Combined Gateway and Server Configuration
 <p align="center">
-  <img src="./img/topologies/Diagram2.JPG" height="650px" />
+  <img src="./img/topologies/Diagram2.JPG" width="650px" />
 </p>
 
 ### Computer Host Configuration
 <p align="center">
-  <img src="./img/topologies/Diagram3.JPG" height="650px" />
+  <img src="./img/topologies/Diagram3.JPG" width="650px" />
 </p>
 
 ### All In One Configuration
 <p align="center">
-  <img src="./img/topologies/Diagram4.JPG" height="650px" />
+  <img src="./img/topologies/Diagram4.JPG" width="650px" />
 </p>
 
 ### Separated Network Configuration
 <p align="center">
-  <img src="./img/topologies/Diagram5.JPG" height="650px" />
+  <img src="./img/topologies/Diagram5.JPG" width="650px" />
 </p>
 
 ### Contributing ~

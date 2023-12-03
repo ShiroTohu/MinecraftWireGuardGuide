@@ -128,7 +128,11 @@ WireGuard does have a security flaw out of the box though. When using other serv
 
 ### How Does WireGuard Work?
 
+TODO...
+
 ### What is IPTables?
+
+TODO...
 
 ### Should WireGuard be used to Host a Minecraft Server?
 WireGuard has many advantages in the VPN space. Though should you create a WireGuard VPN for the sole purpose of hosting a Minecraft server?
@@ -146,7 +150,7 @@ This section will list some alternatives I have found. I will first describe the
 
 |Alternatives|Explanation|
 |---|---|
-[Port Forwarding](https://www.hostinger.com/tutorials/how-to-port-forward-a-minecraft-server)|TODO...
+[Port Forwarding](https://www.hostinger.com/tutorials/how-to-port-forward-a-minecraft-server)|Port Forwarding is an application of the NAT (Network Address Translation) that reroutes communications from one pair of IP and port number combination to another through the network gateway [^8]. 
 [OpenVPN](https://openvpn.net/)|TODO...
 [IPSec](https://en.wikipedia.org/wiki/IPsec)|TODO...
 [Hamachi](https://vpn.net/)|TODO...
@@ -155,6 +159,42 @@ This section will list some alternatives I have found. I will first describe the
 [ZeroTier One](https://www.zerotier.com/)|TODO...
 [Ngrok](https://ngrok.com/)|TODO...
 [ESSENTIALS Mod](https://www.curseforge.com/minecraft/mc-mods/essential-mod)|Essentials is a quality of life mod that allows you to host singleplayer worlds to peers. It also adds some other things that brighten the social aspects of Minecraft like cosmetics and a wardrobe feature. The Mod is available for both [Forge](https://forums.minecraftforge.net/) and [Fabric](https://fabricmc.net/).<br><br>As for the difference between the Essentials Mod and WireGuard it is much more simpler to setup and takes out a lot of the hassle of creating a connection. As for how essentials achieves this is unknown to me.
+
+[^8]: https://en.wikipedia.org/wiki/Port_forwarding
+
+## Choosing Server Topology
+Each server topology requires different sets of prerequisites. You can choose any server topology depending on what you have available to you. For simplicity, this guide will be using the recommended configuration. This isn't a big issue, but if something in the guide deviates from your desired topology I will notify you. Below is a list of the server topologies supported by this guide:
+
+ - [Recommended Configuration]()
+ - [Combined Gateway and Server Configuration]()
+ - [Computer Host Configuration]()
+ - [All In One Configuration]()
+ - [Separated Network Configuration]()
+
+### Recommended Configuration
+<p align="center">
+  <img src="./img/topologies/Diagram1.JPG" height="650px"/>
+</p>
+
+### Combined Gateway and Server Configuration
+<p align="center">
+  <img src="./img/topologies/Diagram2.JPG" height="650px" />
+</p>
+
+### Computer Host Configuration
+<p align="center">
+  <img src="./img/topologies/Diagram3.JPG" height="650px" />
+</p>
+
+### All In One Configuration
+<p align="center">
+  <img src="./img/topologies/Diagram4.JPG" height="650px" />
+</p>
+
+### Separated Network Configuration
+<p align="center">
+  <img src="./img/topologies/Diagram5.JPG" height="650px" />
+</p>
 
 ### Contributing ~
 please see [CONTRIBUTING.md](CONTRIBUTING.md).

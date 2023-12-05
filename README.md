@@ -22,7 +22,7 @@
     3. [Personal PC Host]()
     4. ["The Boy's Got Me" Topology]()
  4. [Setting Up The Operating System]()
-    1. [Setting Up a Raspberry Pi](#sshing-into-your-pi)
+    1. [Setting Up a Raspberry Pi]()
     2. [Setting Up a Ubuntu Server]()
  5. [SSHing into your server]()
  6. [Setting Up WireGuard]()
@@ -76,6 +76,7 @@ There is a lot of filler mixed into this guide, therefore make sure to lookout f
 Below I have listed the prerequisite items needed in order to complete this guide. Though, the items stated is just a recommendation. There are many different ways you can configure the WireGuard server to suit your needs. Feel free to look at the [Choosing Server Topology](#choosing-server-topology) section of the guide where I go more in depth in different ways you can configure the WireGuard Server.
 
 - Recommended
+  - Micro SD Card / USB Drive
   - Internet Connection
   - Debian Based Computer (PiVPN)
   - Computer (Minecraft Server)
@@ -172,7 +173,7 @@ Each server topology requires different sets of prerequisites. You can choose an
  - [Separated Network Configuration]()
 
 ### Recommended Configuration
-This is the recommended configuration where we have the load distributed against three different computers.
+This is the recommended configuration where we have the load distributed against three different computers. You are less likely to run into any performance issues with this setup.
 <p align="center">
   <img src="./img/topologies/Diagram1.JPG" width="650px"/>
 </p>
@@ -184,6 +185,7 @@ This is the recommended configuration where we have the load distributed against
  - Computer (To play on)
 
 ### Combined Gateway and Server Configuration
+In this configuration the WireGuard Gateway and Minecraft server is combined. If the two servers are running on a Raspberry Pi I would advise going with a Minecraft server option that is lightweight like PaperMC or Forge with performance mods. WireGuard isn't very resource intensive from when I benchmarked it, so majority of the load will most likely be the Minecraft server.  
 <p align="center">
   <img src="./img/topologies/Diagram2.JPG" width="650px" />
 </p>
@@ -194,6 +196,9 @@ This is the recommended configuration where we have the load distributed against
  - Computer (To play on)
 
 ### Computer Host Configuration
+Assuming you shut off your computer at night. This is a good alternative if you are not planning to have the Minecraft server running 24/7. If you have a beefy computer that can handle running the game and server this isn't a bad option.
+
+Another cool note with this setup, you don't actually have to setup the server. Instead you can just host through LAN instead and it should work exactly the same but with less steps!
 <p align="center">
   <img src="./img/topologies/Diagram3.JPG" width="650px" />
 </p>
@@ -227,6 +232,30 @@ This topology is more food for thought than anything, if you cannot host the Min
  - Computer (To play on)
 
 ## Setting Up The Operating System
+
+### Setting Up a Raspberry Pi
+You want to download and install the [Raspberry Pi Imager](https://www.raspberrypi.com/software/) for your desired operating system. The imager is available for windows, mac, and linux. You'll also want a MicroSD readily available to use so that you can flash it onto there.
+
+After you have installed the Raspberry Pi Imager launch the software and insert the MicroSD card into your computer.
+
+In the imager, click on "Choose OS". Choose `Raspberry Pi OS Lite`. We want to choose the lite version as the desktop environment is heavy and can drain resources that we want allocated to the Minecraft/WireGuard Gateway. Depending on what Raspberry Pi you have, you'll chose either between the 32 or 64 bit variant. Since the 64 bit variant supports the Raspberry Pi 4, I will choose that.
+
+From there we will be choosing the storage device we want to flash to. Be careful which one you choose as it will override all of the contents located on that drive.
+
+We can customize the image by clicking the cog icon on the bottom left. Set the hostname to anything that you want, personally named mine `KambrookRiceExpress5CupRiceCooker` as it is a sneaky name that fits into all my other devices such as `BagOfDoritos` and `SecretLabsGamingChair`. A very important configuration step as well is configuring SSH. Password authentication will do just fine for our purposes and set a strong username and password. MAKE THE PASSWORD AND USERNAME UNIQUE AND STRONG. I cannot stress enough that SSH can be used for remote attacks so make it strong and unique. 
+
+Configure WirelessLAN to point to your router, this will make it so that you are able to connect ot the internet when you boot up your Pi. I would only really recommend you do this if you don't have an ethernet cable as you can set it through SSH using `sudo raspi-config`.
+
+Configure locale settings if you have too and click then click save.
+
+Double check that you have selected the right drive write to the drive. Wait for it to finish and then eject it from your computer.
+
+If you get an error message like below, **DO NOT** format it. If you have accidentally reformated the drive, just redo the steps mentioned above and you should be just fine.
+
+![Alt text](img/operating-system/image-1.png)
+
+### Setting Up a Ubuntu Server
+
 
 ### Contributing ~
 please see [CONTRIBUTING.md](CONTRIBUTING.md).

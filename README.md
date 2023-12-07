@@ -254,8 +254,72 @@ If you get an error message like below, **DO NOT** format it. If you have accide
 
 ![Alt text](img/operating-system/image-1.png)
 
+for the guide this is the information that we have allocated to the Raspberry Pi
+
 ### Setting Up a Ubuntu Server
 
+TODO...
+
+## SSHing into your server
+You will first need to find the local IP address of the device that you want to SSH into. I found mine by logging into my router/default gateway at `192.168.0.1` and finding my Raspberry Pi's IP address there. To SSH into your Raspberry PI fill in the following and paste in into your terminal where `xxx.xxx.xxx.xxx` is the IP address of your Pi and `username` is the username you assigned to your Raspberry Pi, this isn't to be confused with the host name.
+
+```
+ssh username@xxx.xxx.xxx.xxx
+```
+
+It will state that the authenticity of the host cannot be established and whether you are sure you want to proceed. type `yes`
+
+It will then prompt you for a password. Don't get confused when it doesn't seem to be typing anything, it's just a precautionary it takes to make sure nobody is peaking. Just type it in as you usually do and then press enter.
+
+TADA! you are now remotely accessing your Raspberry/Debian server.
+
+## Setting Up WireGuard
+
+### WireGuard On Debian Based Operating Systems Using PiVPN
+SSH into the intended computer you want to host the gateway on. The install instructions might change in future so make sure to check the [PiVPN](https://pivpn.io/) for download instructions. But as of now, this is the command to install PiVPN:
+
+```
+curl -L https://install.pivpn.io | bash
+```
+
+from there you will be presented with a setup wizard. Read through the instructions as is and click **ok**, if there is any yes or no stuff it will be listed here.
+
+![Alt text](img/pi-vpn/Capture4.JPG)
+
+This is a result of me using VirtualBox to virtualize my Raspberry Pi during testing. If you get this message select **yes**.
+
+![Alt text](img/pi-vpn/image.png)
+
+We will answer **no** for the sake of keeping this guide more simple. Though if you know how to reserve a IP address feel free to select yes.
+
+![Alt text](img/pi-vpn/image-1.png)
+click yes
+
+![Alt text](img/pi-vpn/image-2.png)
+for me there is only one user. You could also create a user specifically for the purpose of holding your configurations, which is a good practice but isn't necessary.
+
+[UPDATE THE GUIDE TO INCLUDE SEPARATE USERS.]
+
+![Alt text](img/pi-vpn/image-3.png)
+We are going with WireGuard!
+
+![Alt text](img/pi-vpn/image-4.png)
+here we are assigning a port number to the server. You can actually put really any number here from 0 to 65,535 but keep in mind some IP addresses are reserved so be careful. I like going with the default port number `51820`.
+
+![Alt text](img/pi-vpn/image-5.png)
+Here we are choosing our DNS provider. I like going with Cloudflare, but you can choose any one of these and you'll be fine. Apart from `PiVPN-is-local-DNS` and `custom`, you might run issues.
+
+[Image Missing]
+**Public IP or DNS**: Most of you will pick public IP address.
+
+![Alt text](img/pi-vpn/image-6.png)
+Yes
+
+![Alt text](img/pi-vpn/image-7.png)
+Reboot and you have successfully installed PiVPN!
+
+### Manual Installation
+TODO...
 
 ### Contributing ~
 please see [CONTRIBUTING.md](CONTRIBUTING.md).

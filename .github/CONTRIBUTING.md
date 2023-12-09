@@ -33,7 +33,6 @@ Please leave two lines between the end of a section and the start of a new secti
 ```markdown
 paragraphs ends here
 
-
 ### New Section 
 ```
 
@@ -44,6 +43,9 @@ paragraph
 
 paragraph
 ```
+
+### Commit Messages
+I would like commit messages to start with lowercase. Though, if by habit you accidentally put it as uppercase, you don't have to rebase or append. You can see in my commit history a mixture of upper and lowercase commits trying to abide by this rule. So it's no big deal.
 
 <p align="center">
   <img height="500px" alt="Aoi thumbs up gif" src="https://media.tenor.com/ovPQKoHymgAAAAAd/aoi-inuyama-yuru-camp.gif" />

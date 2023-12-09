@@ -47,6 +47,13 @@ paragraph
 ### Commit Messages
 I would like commit messages to start with lowercase. Though, if by habit you accidentally put it as uppercase, you don't have to rebase or append. You can see in my commit history a mixture of upper and lowercase commits trying to abide by this rule. So it's no big deal.
 
+### Links
+Here are some useful links that I use all the time to check whether the information I present is correct or not!
+
+ - [Official Website](https://www.wireguard.com/)
+ - [Unofficial Documentation](https://github.com/pirate/wireguard-docs)
+
+
 <p align="center">
   <img height="500px" alt="Aoi thumbs up gif" src="https://media.tenor.com/ovPQKoHymgAAAAAd/aoi-inuyama-yuru-camp.gif" />
 </p>

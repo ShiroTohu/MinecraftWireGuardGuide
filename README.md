@@ -344,15 +344,15 @@ Reboot and you have successfully installed PiVPN!
 
 ## Creating Key Pairs
 now we want to add a peer to our VPN. we view a list of commands using `pivpn -h`
-![Alt text](image.png)
+![Alt text](./img/distributing-key-pairs/image.png)
 
 We type in `pivpn -a` and a setup wizard will walk us through the instructions. We just have to input the name of our peer. To keep track of configuration files are connections, I usually assign the file with their Minecraft username. So if their username is `FartSmella` I would assign the .conf file with that appropriate name as seen below.
 
-![Alt text](image-1.png)
+![Alt text](./img/distributing-key-pairs/image-1.png)
 
 Now, a new folder has been created in your home directory. type `cd configs` and you can see that `FartSmella.conf` has been created.
 
-![Alt text](image-2.png)
+![Alt text](./img/distributing-key-pairs/image-2.png)
 
 you would distribute this file to others if they want to connect to your VPN. Though the default configuration of the file is kinda bad unfortunately and Users can alter the configuration of the file in order to get more access to resources. In order to prevent such a thing from occurring, we have to implement a firewall using IPTables.
 

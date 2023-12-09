@@ -48,7 +48,7 @@ In this guide, I will cover how to create a private Minecraft server using PiVPN
 I have also uploaded a video on my YouTube channel in case you want to follow along in video format. Keep in mind that throughout the video you will have to refer back to specific parts of the guide so that you will have the most up to date information. The video also uses the recommended items and topology. For cases not covered in the video don't worry as they shouldn't differ too much from the video. 
 
 <!-- This is here, so that I can get a general understanding of what a youtube video looks like in the document -->
-[![Temporary Youtube Link](https://img.youtube.com/vi/ghcM8rYgGpM/0.jpg)](https://www.youtube.com/watch?v=ghcM8rYgGpM)
+[![Temporary Youtube Link](https://img.youtube.com/vi/xXvBp3Tgwqs/0.jpg)](https://www.youtube.com/watch?v=xXvBp3Tgwqs)
 
 
 ### Purpose & Motivation ~

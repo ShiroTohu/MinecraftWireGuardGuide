@@ -1,4 +1,4 @@
-# How To Setup A Private Minecraft Server Using WireGuard 
+# How To Setup A Private Minecraft Server Using PiVPN and WireGuard 
 <h2>Disclaimer <img alt=":meow_bounce:" src="https://emojis.slackmojis.com/emojis/images/1643515239/12570/meow_bounce.gif?1643515239" width="40"> </h2>
 
 > This guide is intended to provide information and guidance on how to setup a private Minecraft server using WireGuard. Every effort has been made to ensure that the information presented in this guide is as accurate as possible. Despite this, it is possible that some information in this guide may be inaccurate. I encourage people reading this guide to consult relevant online sources to enhance the guides accuracy and maybe learn more along the way. I have linked the sources used in this guide in the [footnotes](#footnotes) section and suggest going there for further reading. <3
@@ -16,18 +16,15 @@
     3. [How Does It Work?](#how-does-it-work)
     4. [Any Alternatives?](#any-alternatives)
     5. [Further Reading](#further-reading)
- 3. [Choosing Server Topology](#server-topology)
+ 3. [Choosing Server Topology]()
     1. [Separated Servers]()
     2. [Combined Servers]()
     3. [Personal PC Host]()
     4. ["The Boy's Got Me" Topology]()
  4. [Setting Up The Operating System]()
-    1. [Setting Up a Raspberry Pi]()
-    2. [Setting Up a Ubuntu Server]()
  5. [SSHing into your server]()
- 6. [Setting Up WireGuard]()
+ 6. [Setting Up PiVPN]()
     1. [WireGuard On Debian Based Operating Systems Using PiVPN]()
-    2. [Manual WireGuard Setup]()
  7. [Creating Key Pairs]()
  8. [Distributing Key Pairs]()
  9. [Creating The Minecraft Server]()
@@ -318,8 +315,19 @@ Yes
 ![Alt text](img/pi-vpn/image-7.png)
 Reboot and you have successfully installed PiVPN!
 
-### Manual Installation
-TODO...
+## Creating Key Pairs
+now we want to add a peer to our VPN. we view a list of commands using `pivpn -h`
+![Alt text](image.png)
+
+We type in `pivpn -a` and a setup wizard will walk us through the instructions. We just have to input the name of our peer. To keep track of configuration files are connections, I usually assign the file with their Minecraft username. So if their username is `FartSmella` I would assign the .conf file with that appropriate name as seen below.
+
+![Alt text](image-1.png)
+
+Now, a new folder has been created in your home directory. type `cd configs` and you can see that `FartSmella.conf` has been created.
+
+![Alt text](image-2.png)
+
+you would distribute this file to others if they want to connect to your VPN. Though the default configuration of the file is kinda bad unfortunately and Users can alter the configuration of the file in order to get more access to resources. In order to prevent such a thing from occurring, we have to implement a firewall using IPTables.
 
 ### Contributing ~
 please see [CONTRIBUTING.md](CONTRIBUTING.md).

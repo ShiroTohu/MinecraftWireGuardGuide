@@ -358,7 +358,7 @@ you would distribute this file to others if they want to connect to your VPN. Th
 
 
 ### Contributing ~
-please see [CONTRIBUTING.md](CONTRIBUTING.md).
+please see [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
 
 ### Footnotes ~

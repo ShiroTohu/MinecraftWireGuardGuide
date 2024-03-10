@@ -5,41 +5,36 @@
 
 
 ## Table of Contents
- 1. [Introduction](#introduction)
-    1. [Purpose & Motivation](#purpose--motivation)
-    2. [Target Audience](#target-audience)
-    3. [Overview of Steps](#overview-of-steps)
-    4. [Any Prerequisites or Requirements?](#any-prerequisites-or-requirements)
-    5. [Encouragement & Direction](#encouragement--direction)
- 2. [What is WireGuard?](#what-is-wireguard)<br>
-    1. [Why WireGuard to Host a Minecraft Server?](#why-wireguard-to-host-a-minecraft-server)
-    2. [Is WireGuard Safe?](#is-wireguard-safe)
-    3. [How Does It Work?](#how-does-it-work)
-    4. [Any Alternatives?](#any-alternatives)
-    5. [Further Reading](#further-reading)
- 3. [Choosing Server Topology]()
-    1. [Separated Servers]()
-    2. [Combined Servers]()
-    3. [Personal PC Host]()
-    4. ["The Boy's Got Me" Topology]()
- 4. [Setting Up The Operating System]()
- 5. [SSHing into your server]()
- 6. [Setting Up PiVPN]()
-    1. [WireGuard On Debian Based Operating Systems Using PiVPN]()
- 7. [Creating Key Pairs]()
- 8. [Distributing Key Pairs]()
- 9. [Creating The Minecraft Server]()
-    1. [Vanilla Server]()
-    2. [Spigot Server]()
-    3. [PaperMC Server]()
-    4. [Modded Server]()
-    5. [Modded Server Using CurseForge]()
- 1. [DNS Configuration]()
-    1. [PiHole]()
-    2. [CloudFlare]()
- 2. [Changes]()
- 3. [Contributing]()
- 4. [Footnotes]()
+- [How To Setup A Private Minecraft Server Using PiVPN and WireGuard](#how-to-setup-a-private-minecraft-server-using-pivpn-and-wireguard)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+    - [Purpose \& Motivation ~](#purpose--motivation-)
+    - [Target Audience ~](#target-audience-)
+    - [Overview of Steps](#overview-of-steps)
+    - [Any Prerequisites or Requirements?](#any-prerequisites-or-requirements)
+    - [Encouragement \& Direction ~](#encouragement--direction-)
+  - [What is WireGuard?](#what-is-wireguard)
+    - [Is WireGuard Safe?](#is-wireguard-safe)
+    - [How Does WireGuard Work?](#how-does-wireguard-work)
+    - [What is IPTables?](#what-is-iptables)
+    - [Should WireGuard be used to Host a Minecraft Server?](#should-wireguard-be-used-to-host-a-minecraft-server)
+    - [Any Alternatives? ~](#any-alternatives-)
+  - [Choosing Server Topology](#choosing-server-topology)
+    - [Recommended Configuration](#recommended-configuration)
+    - [Combined Gateway and Server Configuration](#combined-gateway-and-server-configuration)
+    - [Computer Host Configuration](#computer-host-configuration)
+    - [All In One Configuration](#all-in-one-configuration)
+    - [Separated Network Configuration](#separated-network-configuration)
+  - [Setting Up The Operating System](#setting-up-the-operating-system)
+    - [Setting Up a Raspberry Pi](#setting-up-a-raspberry-pi)
+    - [Setting Up a Ubuntu Server](#setting-up-a-ubuntu-server)
+  - [SSHing into your server](#sshing-into-your-server)
+  - [Setting Up WireGuard](#setting-up-wireguard)
+    - [WireGuard On Debian Based Operating Systems Using PiVPN](#wireguard-on-debian-based-operating-systems-using-pivpn)
+  - [Creating Key Pairs](#creating-key-pairs)
+    - [Firewall using IPTables](#firewall-using-iptables)
+    - [Contributing ~](#contributing-)
+    - [Footnotes ~](#footnotes-)
 
 
 ## Introduction
@@ -355,6 +350,29 @@ Now, a new folder has been created in your home directory. type `cd configs` and
 ![Alt text](./img/distributing-key-pairs/image-2.png)
 
 you would distribute this file to others if they want to connect to your VPN. Though the default configuration of the file is kinda bad unfortunately and Users can alter the configuration of the file in order to get more access to resources. In order to prevent such a thing from occurring, we have to implement a firewall using IPTables.
+
+
+### Firewall using IPTables
+Let's define the scope of what sort of rules we want to enable in our firewall.
+
+ - Users should be able to freely connect to port 25565
+ - Users should not be able to ssh into the raspberry pi
+   - If you want to enable ssh for certain users feel free, you can just use this command to make it happen.
+   - `iptables -A INPUT {IP-ADDRESS} -p tcp --dport 25565 -j ACCEPT`
+   - Make sure to do this above `iptables -A INPUT -i wg0 -p tcp --dport 22 -j DROP` as the ordering matters.
+ - Users should not be able to forward requests outside of the VPN network.
+
+> [!CAUTION]
+> The following has not been tested and acts as a placeholder, please do not use the following.
+`
+```
+# preup.sh
+iptables -A INPUT -i wg0 -p tcp --dport 22 -j DROP
+iptables -A INPUT -i wg0 -p tcp --dport 25565 -j ACCEPT
+iptables -A INPUT -i wg0 -j DROP`
+
+iptables -A FORWARD -i wg0 -o wlan0 -j DROP
+```
 
 
 ### Contributing ~

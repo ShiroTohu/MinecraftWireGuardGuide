@@ -1,4 +1,8 @@
 # How To Setup A Private Minecraft Server Using PiVPN and WireGuard 
+
+> [!WARNING]
+> This guide is incomplete
+
 <h2>Disclaimer <img alt=":meow_bounce:" src="https://emojis.slackmojis.com/emojis/images/1643515239/12570/meow_bounce.gif?1643515239" width="40"> </h2>
 
 > This guide is intended to provide information and guidance on how to setup a private Minecraft server using WireGuard. Every effort has been made to ensure that the information presented in this guide is as accurate as possible. Despite this, it is possible that some information in this guide may be inaccurate. I encourage people reading this guide to consult relevant online sources to enhance the guides accuracy and maybe learn more along the way. I have linked the sources used in this guide in the [footnotes](#footnotes) section and suggest going there for further reading. <3
@@ -380,4 +384,4 @@ please see [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
 
 ### Footnotes ~
-<!-- The footnotes will be automatically placed here. -->
+<!-- The footnotes will be automatically placed here by GitHub -->

@@ -1,5 +1,6 @@
 # How to setup a Minecraft Server using WireGuard
 <h2>Disclaimer <img alt=":meow_bounce:" src="https://emojis.slackmojis.com/emojis/images/1643515239/12570/meow_bounce.gif?1643515239" width="40"> </h2>
+
 > This guide is intended to provide information and guidance on how to setup a private Minecraft server using WireGuard. Every effort has been made to ensure that the information presented in this guide is as accurate as possible. Despite this, it is possible that some information in this guide may be inaccurate. So do it at your own risk. I encourage people reading this guide to consult relevant online sources to enhance the guides accuracy and maybe learn more along the way.
 ## Introduction
 In this guide, I will cover how to create a private Minecraft server using [WireGuard Easy](https://github.com/wg-easy/wg-easy). This guide is meant for private Minecraft servers, using WireGuard to host a public Minecraft server is not recommended as there are better methods to achieve that. If you are looking to host a public Minecraft server, consider hosting with a [VPS](https://en.wikipedia.org/wiki/Virtual_private_server). This guide will cover everything from WireGuard basics, configuring the operating system, and deploying the Minecraft server.

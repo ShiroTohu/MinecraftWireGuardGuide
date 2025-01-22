@@ -31,8 +31,8 @@ For running the gateway I recommend [Ubuntu Server](https://ubuntu.com/download/
 You can flash the operating system onto a USB Drive or SD Card using [Balena Etcher](https://etcher.balena.io/) or [Rufus](https://rufus.ie/en/). Then plug it into the computer your want the operating system to be on. Boot into the BIOS or UEFI Firmware Settings and find the USB to boot from.
 
 - If it asks you to update the installer it usually is a good idea to do so. You get the latest security and such. I also like to search for third-party drivers in case for some reason you need a driver for something on your computer.
-- You can encrypt the LVM group using LUKS, I like doing it because it adds that little bit of extra security.
-- No big deal what name you choose, just choose a strong password.
+- You can encrypt the LVM group using LUKS, I like doing that because it adds that little bit of extra security.
+- No big deal what names you choose, just choose a strong password.
 - You can enable SSH during the install process. This allows you to remotely connect to your server using a username or password. It is quite useful to have set up. I'll be showing how to enable SSH and connect to it later through the terminal if you are unsure.
 - **DO NOT INSTALL DOCKER** from the snap repository, we'll be doing it a different way later.  
 - Reboot! Remove installation medium then press ENTER!
@@ -58,6 +58,8 @@ You can find the IP address of the server using `ifconfig`. The IP address for t
 ssh <username>@<server_ip_address>
 ```
 ### Creating the Firewall using Iptables
+If we setup WireGuard out of the box with no firewall rules, there is nothing stopping clients from accessing our LAN network. Traffic from their device can be masqueraded by our home network as their traffic is sent out through our gateway.
+
 Before we Install wg-easy we should get setup some files in `etc/wireguard/`, this will just make it a little bit more easier to manage your firewall down the road if you need it. We will be creating two files `postup.sh` and `postdown.sh`.  In essence, these two scripts will be ran when setting up and tearing down the interface.
 
 `etc/wireguard/` is a protected folder and therefore needs sudo privilege's to access. To log into the sudo user type the following command. The folder won't show up if you don't have `wireguard-tools` installed.
@@ -83,7 +85,12 @@ iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
 ```
 chmod +x /etc/wireguard/postup.sh /etc/wireguard/postdown.sh
 ```
-I recommend running these and checking if they work using iptables. Don't forget to exit out of sudo with the `exit` command once you are done.
+I recommend running these and checking if they work using iptables. 
+```
+iptables --list
+iptables --table nat --list
+```
+Don't forget to exit out of sudo with the `exit` command once you are done.
 ### Installing Docker
 If you haven't installed Docker yet here is how you can do it via the command line. The first line installs docker using modified [docker-install](https://github.com/docker/docker-install) command. It then adds the current user to the docker group. It gets the current user using the `whoami` shell command.
 ```
@@ -99,7 +106,11 @@ cd wg-easy
 ```
 We first need to generate a password hash. We can use the wg-easy hashing tool to make this process easier. I have modified the command from the [wg-password wiki page](https://github.com/wg-easy/wg-easy/blob/master/How_to_generate_an_bcrypt_hash.md) to replace $ symbols with \$\$ and start with a dash. 
 ```
-docker run --rm -it ghcr.io/wg-easy/wg-easy wgpw 'YOUR_PASSWORD' | sed -e 's/\$/\$\$/g' -e 's/^/- /'
+# if you are doing this manually
+docker run --rm -it ghcr.io/wg-easy/wg-easy wgpw 'YOUR_PASSWORD'
+
+# if you don't mind copy and pasting
+docker run --rm -it ghcr.io/wg-easy/wg-easy wgpw 'YOUR_PASSWORD' | sed -e 's/\$/\$\$/g' -e 's/^/- /' -e 's/\'//'
 ```
 We also need to save it somewhere as we will be making changes to `docker-compose.yml`. If you are using SSH, save it to the clipboard. If you are doing this from the terminal without SSH it's a bit harder. The way I found is to append the output of the command to the end of `docker-compose.yml` and moving it 37 lines up using a text editor. You can append to the end of the docker compose file by adding ` >> docker-compose.yml` to the end of the command .
 
@@ -107,9 +118,13 @@ Next Open up a text editor using `nano` or whatever you want. Use `vim` if you w
 ```
 nano docker-compose.yml
 ```
-Paste in your password hash from the previous step. under the `# Optional` comment in the `docker-compose.yml` file.
+Paste in your password hash from the previous step. under the `# Optional` comment in the `docker-compose.yml` file. The command doesn't work out of the box for docker-compose so some changes need to be made.
+- Remove the `'` at the beginning and end of the password hash
+- Change `$` to `$$`
+- Don't forget the `-` at the beginning
+This is what a correct password hash should look like.
 ```
-- PASSWORD_HASH='$$2y$$10$$hBCoykrB95WSzuV4fafBzOHWKu9sbyVa34GJr8VV5R/pIelfEMYyG'
+- PASSWORD_HASH=$$2y$$10$$hBCoykrB95WSzuV4fafBzOHWKu9sbyVa34GJr8VV5R/pIelfEMYyG
 ```
 Change all other configurations in the compose file to the ones listed below.
 ```
@@ -132,7 +147,10 @@ You don't need the `wg-easy` folder cloned from the repo anymore to delete it.
 cd
 rm -fr wg-easy/
 ```
-Now if you go in a web browser and type the LOCAL IP address of the server with the port 52821 you should be greeted with a page like this. 
+Now if you go in a web browser and type the LOCAL IP address of the server with the port `51821` you should be greeted with a page like this. 
+![[WireGuard Login.png]]
+Just log in and how you are on the configuration page where you can add new connections/clients, download config files etc.
+![[WireGuard Home Page.png]]
 ### Port Forwarding
 Port forwarding is different for everyone as different routers have different gateways. You can find the default gateway of your network using `ipconfig` on windows, `route -n get default` on mac and `ip route` on Linux.
 

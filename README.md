@@ -114,9 +114,9 @@ cd
 rm -fr wg-easy/
 ```
 Now if you go in a web browser and type the LOCAL IP address of the server with the port `51821` you should be greeted with a page like this. 
-![[WireGuard Login.png]]
+![login page](images/wireguard-login.png)
 Just log in and how you are on the configuration page where you can add new connections/clients, download config files etc.
-![[WireGuard Home Page.png]]
+![home page](images/wireguard-home.png)
 ### Creating the Firewall using Iptables
 If we setup WireGuard out of the box with no firewall rules, there is nothing stopping clients from accessing our LAN network. Traffic from their device can be masqueraded by our home network as their traffic is sent out through our gateway.
 

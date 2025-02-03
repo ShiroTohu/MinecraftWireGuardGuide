@@ -3,7 +3,7 @@
 
 > This guide is intended to provide information and guidance on how to setup a private Minecraft server using WireGuard. Every effort has been made to ensure that the information presented in this guide is as accurate as possible. Despite this, it is possible that some information in this guide may be inaccurate. So do it at your own risk. I encourage people reading this guide to consult relevant online sources to enhance the guides accuracy and maybe learn more along the way.
 ## Introduction
-In this guide, I will cover how to create a private Minecraft server using [WireGuard Easy](https://github.com/wg-easy/wg-easy). This guide is meant for private Minecraft servers, using WireGuard to host a public Minecraft server is not recommended as there are better methods to achieve that. If you are looking to host a public Minecraft server, consider hosting with a [VPS](https://en.wikipedia.org/wiki/Virtual_private_server). This guide will cover everything from configuring the operating system, setting up wg-easy for split tunneling, and deploying the Minecraft server.
+In this guide, I will cover how to create a private Minecraft server using [WireGuard Easy](https://github.com/wg-easy/wg-easy). This guide is meant for private Minecraft servers, using WireGuard to host a public Minecraft server is not recommended as there are better methods to achieve that. If you are looking to host a public Minecraft server, consider hosting with a [VPS](https://en.wikipedia.org/wiki/Virtual_private_server). This guide will cover everything from configuring the operating system, setting up wg-easy for split tunnelling, and deploying the Minecraft server.
 ### Purpose & Motivation
 I utilized WireGuard for a project when I was developing [StorageSolution](https://github.com/ShiroTohu/StorageSolution). **StorageSolution** was a full-stack application developed for an assignment. It allowed the contents of chests to be accessed by players in my private Minecraft server. I did not want to expose this application to the internet, especially because the API was implemented very poorly. So I utilized WireGuard to allow only a select few to access the API.
 
@@ -57,40 +57,6 @@ You can find the IP address of the server using `ifconfig`. The IP address for t
 ```
 ssh <username>@<server_ip_address>
 ```
-### Creating the Firewall using Iptables
-If we setup WireGuard out of the box with no firewall rules, there is nothing stopping clients from accessing our LAN network. Traffic from their device can be masqueraded by our home network as their traffic is sent out through our gateway.
-
-Before we Install wg-easy we should get setup some files in `etc/wireguard/`, this will just make it a little bit more easier to manage your firewall down the road if you need it. We will be creating two files `postup.sh` and `postdown.sh`.  In essence, these two scripts will be ran when setting up and tearing down the interface.
-
-`etc/wireguard/` is a protected folder and therefore needs sudo privilege's to access. To log into the sudo user type the following command. The folder won't show up if you don't have `wireguard-tools` installed.
-
-```
-sudo -i
-```
-Create these two files using `nano` or your favourite text editor and replace the X with the corresponding number in your local network. This can be found out using `ifconfig`.
-```
-# /etc/wireguard/postup.sh
-iptables -I FORWARD -i wg0 -d 192.168.X.0/24 -j REJECT 
-iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-```
-`postup.sh` is responsible for setting up the firewall when the interface is setup.
-- All packets that are FORWARDED through the wg0 interface (The VPN) with a destination address of somewhere in your local network (192.168.X.0) are REJECTED.
-```
-# /etc/wireguard/postdown.sh
-iptables -D FORWARD -i wg0 -d 192.168.X.0/24 -j REJECT 
-iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
-```
-`postdown.sh` tears down all the rules setup by the `postup.sh` script. The reason why we don't just flush all the rules out of Iptables is that `wg-easy` has some rules of their own that I wouldn't want to touch. You can see these rules if you type `sudo iptables --list`
-
-```
-chmod +x /etc/wireguard/postup.sh /etc/wireguard/postdown.sh
-```
-I recommend running these and checking if they work using iptables. 
-```
-iptables --list
-iptables --table nat --list
-```
-Don't forget to exit out of sudo with the `exit` command once you are done.
 ### Installing Docker
 If you haven't installed Docker yet here is how you can do it via the command line. The first line installs docker using modified [docker-install](https://github.com/docker/docker-install) command. It then adds the current user to the docker group. It gets the current user using the `whoami` shell command.
 ```
@@ -151,6 +117,46 @@ Now if you go in a web browser and type the LOCAL IP address of the server with 
 ![[WireGuard Login.png]]
 Just log in and how you are on the configuration page where you can add new connections/clients, download config files etc.
 ![[WireGuard Home Page.png]]
+### Creating the Firewall using Iptables
+If we setup WireGuard out of the box with no firewall rules, there is nothing stopping clients from accessing our LAN network. Traffic from their device can be masqueraded by our home network as their traffic is sent out through our gateway.
+
+Before we Install wg-easy we should get setup some files in `etc/wireguard/`, this will just make it a little bit more easier to manage your firewall down the road if you need it. We will be creating two files `postup.sh` and `postdown.sh`.  In essence, these two scripts will be ran when setting up and tearing down the interface.
+
+shell into the docker container using the following command. `<container>` is the container from the `docker ps` command.
+```
+docker ps
+docker exec -it <container> sh
+```
+
+`etc/wireguard/` is a protected folder and therefore needs sudo privilege's to access. To log into the sudo user type the following command. The folder won't show up if you don't have `wireguard-tools` installed.
+
+```
+sudo -i
+```
+Create these two files using `nano` or your favourite text editor and replace the X with the corresponding number in your local network. This can be found out using `ifconfig`.
+```
+# /etc/wireguard/postup.sh
+iptables -I FORWARD -i wg0 -d 192.168.X.0/24 -j REJECT 
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+```
+`postup.sh` is responsible for setting up the firewall when the interface is setup.
+- All packets that are FORWARDED through the wg0 interface (The VPN) with a destination address of somewhere in your local network (192.168.X.0) are REJECTED.
+```
+# /etc/wireguard/postdown.sh
+iptables -D FORWARD -i wg0 -d 192.168.X.0/24 -j REJECT 
+iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+```
+`postdown.sh` tears down all the rules setup by the `postup.sh` script. The reason why we don't just flush all the rules out of Iptables is that `wg-easy` has some rules of their own that I wouldn't want to touch. You can see these rules if you type `sudo iptables --list`
+
+```
+chmod +x /etc/wireguard/postup.sh /etc/wireguard/postdown.sh
+```
+I recommend running these and checking if they work using iptables. 
+```
+iptables --list
+iptables --table nat --list
+```
+Don't forget to exit out of sudo with the `exit` command once you are done.
 ### Port Forwarding
 Port forwarding is different for everyone as different routers have different gateways. You can find the default gateway of your network using `ipconfig` on windows, `route -n get default` on mac and `ip route` on Linux.
 

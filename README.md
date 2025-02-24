@@ -141,6 +141,7 @@ iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 ```
 `postup.sh` is responsible for setting up the firewall when the interface is setup.
 - All packets that are FORWARDED through the wg0 interface (The VPN) with a destination address of somewhere in your local network (192.168.X.0) are REJECTED.
+- All packets sent out of `eth0` are MASQUERADED hides the actual IP address of the sender. You can think of the gateway masquerading as the device behind it.
 ```
 # /etc/wireguard/postdown.sh
 iptables -D FORWARD -i wg0 -d 192.168.X.0/24 -j REJECT 
